@@ -21,8 +21,8 @@ yarn
 yarn build
 
 echo "Deploying..."
-gsutil mkdir -p gs://waterfall-of-meaning/demo
-gsutil -m cp dist/* gs://waterfall-of-meaning/demo
+# The gsutil mkdir command was removed, as gcloud storage creates directories automatically when objects are uploaded.
+gcloud storage cp dist/* gs://waterfall-of-meaning/demo
 
-gsutil -m setmeta -h "Cache-Control:private" "gs://waterfall-of-meaning/**.html"
-gsutil -m setmeta -h "Cache-Control:private" "gs://waterfall-of-meaning/**.js"
+gcloud storage objects update "gs://waterfall-of-meaning/**.html" --cache-control="private"
+gcloud storage objects update "gs://waterfall-of-meaning/**.js" --cache-control="private"
